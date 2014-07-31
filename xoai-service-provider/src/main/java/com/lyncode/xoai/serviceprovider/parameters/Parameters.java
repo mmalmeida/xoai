@@ -15,7 +15,8 @@ import com.lyncode.xoai.services.impl.UTCDateProvider;
 import com.lyncode.xoai.util.URLEncoder;
 
 public class Parameters {
-    private static DateProvider formatter = new UTCDateProvider();
+    private static final String OAI_DC_AGRIS = "oai_dc_agris";
+	private static DateProvider formatter = new UTCDateProvider();
 
     public static Parameters parameters () {
         return new Parameters();
@@ -59,7 +60,9 @@ public class Parameters {
 
     public Parameters withResumptionToken(String value) {
         this.resumptionToken = value;
-        this.metadataPrefix = null;
+        if(!this.metadataPrefix.equals(OAI_DC_AGRIS)) {
+        	this.metadataPrefix = null;	
+        }
         this.until = null;
         this.set = null;
         this.from = null;
