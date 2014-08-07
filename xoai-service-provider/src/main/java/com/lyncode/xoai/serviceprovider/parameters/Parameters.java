@@ -60,7 +60,7 @@ public class Parameters {
 
     public Parameters withResumptionToken(String value) {
         this.resumptionToken = value;
-        if(!this.metadataPrefix.equals(OAI_DC_AGRIS)) {
+        if(this.metadataPrefix != null && !this.metadataPrefix.equals(OAI_DC_AGRIS)) {
         	this.metadataPrefix = null;	
         }
         this.until = null;
