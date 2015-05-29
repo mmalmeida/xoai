@@ -24,10 +24,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-<<<<<<< HEAD
-=======
 import java.util.List;
->>>>>>> https
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -49,11 +46,7 @@ import com.lyncode.xoai.serviceprovider.parameters.Parameters;
 public class HttpOAIClient implements OAIClient {
 	private String baseUrl;
 	private HttpClient httpclient = new DefaultHttpClient();
-<<<<<<< HEAD
 
-	public HttpOAIClient(String baseUrl) throws HttpException {
-		this.baseUrl = baseUrl;
-=======
 	private List<String> baseUrlsHttpsExclusion;
 	
 	public HttpOAIClient(String baseUrl) {
@@ -70,7 +63,6 @@ public class HttpOAIClient implements OAIClient {
 	public HttpOAIClient(String baseUrl, List<String> baseUrlsHttpsExclusion) throws HttpException {
 		this.baseUrl = baseUrl;
 		this.baseUrlsHttpsExclusion = baseUrlsHttpsExclusion;
->>>>>>> https
 		initHttpClient();
 	}
 
@@ -93,11 +85,6 @@ public class HttpOAIClient implements OAIClient {
 		return new HttpGet(parameters.toUrl(baseUrl));
 	}
 
-<<<<<<< HEAD
-	private void initHttpClient() throws HttpException {
-		try {
-			if (baseUrl.startsWith("https://doaj.org")) {
-=======
 	/**
 	 * Initializes the HTTP client and if the base URL is in the
 	 * baseUrlsHttpsExclusion then the certificate verification will not happen
@@ -107,7 +94,6 @@ public class HttpOAIClient implements OAIClient {
 	private void initHttpClient() throws HttpException {
 		try {
 			if (baseUrlsHttpsExclusion != null && baseUrlsHttpsExclusion.contains(baseUrl)) {
->>>>>>> https
 				SSLSocketFactory sslsf = new SSLSocketFactory(
 						new TrustStrategy() {
 							@Override
