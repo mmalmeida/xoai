@@ -46,6 +46,7 @@ import com.lyncode.xoai.serviceprovider.parameters.Parameters;
 public class HttpOAIClient implements OAIClient {
 	private String baseUrl;
 	private HttpClient httpclient = new DefaultHttpClient();
+
 	private List<String> baseUrlsHttpsExclusion;
 	
 	public HttpOAIClient(String baseUrl) {
