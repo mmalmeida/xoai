@@ -39,20 +39,24 @@ import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.BasicClientConnectionManager;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 
 import com.lyncode.xoai.serviceprovider.exceptions.HttpException;
 import com.lyncode.xoai.serviceprovider.parameters.Parameters;
 
 public class HttpOAIClient implements OAIClient {
 	private String baseUrl;
-	private HttpClient httpclient = new DefaultHttpClient();
+	private HttpClient httpclient;
 
 	private List<String> baseUrlsHttpsExclusion;
 	
 	public HttpOAIClient(String baseUrl) {
 		this.baseUrl = baseUrl;
+		httpclient = new DefaultHttpClient(createHttpParams());
 	}
-	
+
 	/**
 	 * Creates a HttpOAIClient 
 	 * 
@@ -61,7 +65,7 @@ public class HttpOAIClient implements OAIClient {
 	 * @throws HttpException
 	 */
 	public HttpOAIClient(String baseUrl, List<String> baseUrlsHttpsExclusion) throws HttpException {
-		this.baseUrl = baseUrl;
+		this(baseUrl);
 		this.baseUrlsHttpsExclusion = baseUrlsHttpsExclusion;
 		initHttpClient();
 	}
@@ -111,7 +115,7 @@ public class HttpOAIClient implements OAIClient {
 
 				ClientConnectionManager cm = new BasicClientConnectionManager(
 						schemeRegistry);
-				httpclient = new DefaultHttpClient(cm);
+				httpclient = new DefaultHttpClient(cm, createHttpParams());
 			}
 		} catch (KeyManagementException e) {
 			throw new HttpException(e);
@@ -122,5 +126,18 @@ public class HttpOAIClient implements OAIClient {
 		} catch (KeyStoreException e) {
 			throw new HttpException(e);
 		}
+	}
+	
+	/**
+	 * Creates a HttpParams with the options connection and socket timeout of 1
+	 * minute
+	 * 
+	 * @return
+	 */
+	private HttpParams createHttpParams() {
+		final HttpParams httpParams = new BasicHttpParams();
+	    HttpConnectionParams.setConnectionTimeout(httpParams, 60000);
+	    HttpConnectionParams.setSoTimeout(httpParams, 60000);
+		return httpParams;
 	}
 }
