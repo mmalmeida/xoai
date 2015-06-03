@@ -49,7 +49,7 @@ import com.lyncode.xoai.serviceprovider.parameters.Parameters;
 public class HttpOAIClient implements OAIClient {
 	private String baseUrl;
 	private HttpClient httpclient;
-
+	private int timeout = 60000;
 	private List<String> baseUrlsHttpsExclusion;
 	
 	public HttpOAIClient(String baseUrl) {
@@ -65,7 +65,21 @@ public class HttpOAIClient implements OAIClient {
 	 * @throws HttpException
 	 */
 	public HttpOAIClient(String baseUrl, List<String> baseUrlsHttpsExclusion) throws HttpException {
-		this(baseUrl);
+		this.baseUrl = baseUrl;
+		this.baseUrlsHttpsExclusion = baseUrlsHttpsExclusion;
+		initHttpClient();
+	}
+	
+	/**
+	 * Creates a HttpOAIClient 
+	 * 
+	 * @param baseUrl - the base URL for the OAI repository 
+	 * @param baseUrlsHttpsExclusion - the base URL for the OAI repositories to exclude from the HTTPS certificate verification
+	 * @throws HttpException
+	 */
+	public HttpOAIClient(String baseUrl, List<String> baseUrlsHttpsExclusion, int timeout) throws HttpException {
+		this.timeout = timeout;
+		this.baseUrl = baseUrl;
 		this.baseUrlsHttpsExclusion = baseUrlsHttpsExclusion;
 		initHttpClient();
 	}
@@ -116,6 +130,8 @@ public class HttpOAIClient implements OAIClient {
 				ClientConnectionManager cm = new BasicClientConnectionManager(
 						schemeRegistry);
 				httpclient = new DefaultHttpClient(cm, createHttpParams());
+			} else {
+				httpclient = new DefaultHttpClient(createHttpParams());
 			}
 		} catch (KeyManagementException e) {
 			throw new HttpException(e);
@@ -136,8 +152,8 @@ public class HttpOAIClient implements OAIClient {
 	 */
 	private HttpParams createHttpParams() {
 		final HttpParams httpParams = new BasicHttpParams();
-	    HttpConnectionParams.setConnectionTimeout(httpParams, 60000);
-	    HttpConnectionParams.setSoTimeout(httpParams, 60000);
+	    HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
+	    HttpConnectionParams.setSoTimeout(httpParams, timeout);
 		return httpParams;
 	}
 }
