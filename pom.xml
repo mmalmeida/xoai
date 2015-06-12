@@ -14,7 +14,7 @@
         <version>7</version>
     </parent>
 
-    <groupId>com.lyncode</groupId>
+    <groupId>com.itclinical</groupId>
     <artifactId>xoai</artifactId>
     <version>4.2.0</version>
 
