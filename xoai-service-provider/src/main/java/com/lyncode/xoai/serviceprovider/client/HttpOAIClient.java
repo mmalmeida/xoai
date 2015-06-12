@@ -69,7 +69,7 @@ public class HttpOAIClient implements OAIClient {
 		this.baseUrlsHttpsExclusion = baseUrlsHttpsExclusion;
 		initHttpClient();
 	}
-	
+
 	/**
 	 * Creates a HttpOAIClient 
 	 * 
