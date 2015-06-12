@@ -20,7 +20,7 @@ XOAI could be integrated with maven support.
 	<dependency>
 	    <groupId>com.lyncode</groupId>
 	    <artifactId>xoai</artifactId>
-	    <version>4.0.0</version>
+	    <version>4.1.0</version>
 	</dependency>
 	
 Changes
@@ -33,7 +33,10 @@ Changes
 - Service provider made lazy
 - Service provider with pipeline processing (centralized xoai schema)
 
-
+**4.0.0 to 4.1.0**
+ 
+- Several fixes on the Service provider
+- Supporting granularity on parameters (service provider) 
 
 License
 -------
