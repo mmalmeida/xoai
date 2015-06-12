@@ -57,7 +57,6 @@ public class HttpOAIClient implements OAIClient {
 		httpclient = new DefaultHttpClient(createHttpParams());
 	}
 
-
 	/**
 	 * Creates a HttpOAIClient 
 	 * 
@@ -70,19 +69,19 @@ public class HttpOAIClient implements OAIClient {
 		this.baseUrlsHttpsExclusion = baseUrlsHttpsExclusion;
 		initHttpClient();
 	}
-
 	
 	/**
 	 * Creates a HttpOAIClient 
 	 * 
 	 * @param baseUrl - the base URL for the OAI repository 
-	 * @param baseUrlsHttpsExclusion - if provided, the base URLs for the OAI repositories will ignore problems related with HTTPS certificate verification
-	 * @par
+	 * @param baseUrlsHttpsExclusion - the base URL for the OAI repositories to exclude from the HTTPS certificate verification
 	 * @throws HttpException
 	 */
 	public HttpOAIClient(String baseUrl, List<String> baseUrlsHttpsExclusion, int timeout) throws HttpException {
 		this.timeout = timeout;
-		this(baseurl,baseUrlsHttpsExclusion);
+		this.baseUrl = baseUrl;
+		this.baseUrlsHttpsExclusion = baseUrlsHttpsExclusion;
+		initHttpClient();
 	}
 
 	public InputStream execute(Parameters parameters) throws HttpException {
@@ -130,11 +129,9 @@ public class HttpOAIClient implements OAIClient {
 
 				ClientConnectionManager cm = new BasicClientConnectionManager(
 						schemeRegistry);
-
 				httpclient = new DefaultHttpClient(cm, createHttpParams());
 			} else {
 				httpclient = new DefaultHttpClient(createHttpParams());
-
 			}
 		} catch (KeyManagementException e) {
 			throw new HttpException(e);
