@@ -16,7 +16,7 @@
 
     <groupId>com.lyncode</groupId>
     <artifactId>xoai</artifactId>
-    <version>4.0.3-SNAPSHOT</version>
+    <version>4.2.0</version>
 
     <name>XOAI : OAI-PMH Java Toolkit</name>
     <url>http://www.lyncode.com</url>
@@ -46,11 +46,11 @@
         <connection>scm:git:git@github.com:lyncode/xoai.git</connection>
         <developerConnection>scm:git:git@github.com:lyncode/xoai.git</developerConnection>
         <url>git@github.com:lyncode/xoai.git</url>
-      <tag>HEAD</tag>
+      <tag>xoai-4.1.0</tag>
   </scm>
 
-    <distributionManagement>
-        <snapshotRepository>
+	<distributionManagement>
+		<snapshotRepository>
             <id>ossrh</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
@@ -58,7 +58,7 @@
             <id>ossrh</id>
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
-    </distributionManagement>
+	</distributionManagement>
 
     <build>
         <pluginManagement>
